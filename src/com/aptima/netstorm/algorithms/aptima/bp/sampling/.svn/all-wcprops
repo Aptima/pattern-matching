@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/xdatasummercamp/!svn/ver/67/NetstormLight/src/com/aptima/netstorm/algorithms/aptima/bp/sampling
+END
+DFSSampler.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/xdatasummercamp/!svn/ver/1/NetstormLight/src/com/aptima/netstorm/algorithms/aptima/bp/sampling/DFSSampler.java
+END
+Sample.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/xdatasummercamp/!svn/ver/5/NetstormLight/src/com/aptima/netstorm/algorithms/aptima/bp/sampling/Sample.java
+END
+Sampler.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/xdatasummercamp/!svn/ver/1/NetstormLight/src/com/aptima/netstorm/algorithms/aptima/bp/sampling/Sampler.java
+END
+SampleComparator.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/xdatasummercamp/!svn/ver/1/NetstormLight/src/com/aptima/netstorm/algorithms/aptima/bp/sampling/SampleComparator.java
+END
+RelationshipForSample.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/xdatasummercamp/!svn/ver/5/NetstormLight/src/com/aptima/netstorm/algorithms/aptima/bp/sampling/RelationshipForSample.java
+END
+RelationshipIDValue.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/xdatasummercamp/!svn/ver/67/NetstormLight/src/com/aptima/netstorm/algorithms/aptima/bp/sampling/RelationshipIDValue.java
+END

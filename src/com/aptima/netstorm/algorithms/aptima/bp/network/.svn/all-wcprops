@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/xdatasummercamp/!svn/ver/44/NetstormLight/src/com/aptima/netstorm/algorithms/aptima/bp/network
+END
+AttributedDataRelation.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/xdatasummercamp/!svn/ver/1/NetstormLight/src/com/aptima/netstorm/algorithms/aptima/bp/network/AttributedDataRelation.java
+END
+AdjacencyListNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/xdatasummercamp/!svn/ver/43/NetstormLight/src/com/aptima/netstorm/algorithms/aptima/bp/network/AdjacencyListNode.java
+END
+AttributedModelRelation.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/xdatasummercamp/!svn/ver/44/NetstormLight/src/com/aptima/netstorm/algorithms/aptima/bp/network/AttributedModelRelation.java
+END
+AttributedDataNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/xdatasummercamp/!svn/ver/1/NetstormLight/src/com/aptima/netstorm/algorithms/aptima/bp/network/AttributedDataNode.java
+END
+DataAttributeSet.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/xdatasummercamp/!svn/ver/1/NetstormLight/src/com/aptima/netstorm/algorithms/aptima/bp/network/DataAttributeSet.java
+END
+AdjacencyListRelation.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/xdatasummercamp/!svn/ver/44/NetstormLight/src/com/aptima/netstorm/algorithms/aptima/bp/network/AdjacencyListRelation.java
+END
+ModelAttributeConstraints.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/xdatasummercamp/!svn/ver/1/NetstormLight/src/com/aptima/netstorm/algorithms/aptima/bp/network/ModelAttributeConstraints.java
+END
+AttributedModelNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/xdatasummercamp/!svn/ver/44/NetstormLight/src/com/aptima/netstorm/algorithms/aptima/bp/network/AttributedModelNode.java
+END

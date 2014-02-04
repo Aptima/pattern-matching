@@ -1,0 +1,30 @@
+-- Input table: XXX
+-- Columns:
+-- 		id					(transaction ID)
+--		source_edge_ID		(source node ID)
+--		dest_edge_ID		(dest node ID)
+--		dtg					(date time geo(?))
+--		amount				(decimal amount)
+
+-- load $pattern$=String version of pattern
+
+add file HiveMapScript.jar;
+add file HiveReduceScript.jar;
+
+-- To load pattern:
+-- add file pattern.txt
+-- TODO: Set variable to string that is read from pattern.txt.
+-- TODO: Pass string into map and reduce jar as a command line argument.
+
+from (
+	from (bitcoin)
+	map(id, source_edge_ID, dest_edge_ID, dtg, amount)
+	using 'java -jar HiveMapScript.jar'
+	as isLink, srcID, destID, mismatchVector, timeWindow
+	distribute by timeWindow
+	sort by timeWindow ASC, isLink ASC) temp
+	
+insert overwrite aptima_pm_result
+	reduce( temp.isLink, temp.srcID, temp.destID, temp.mismatchVector, temp.timeWindow )
+	using 'java -jar HiveReduceScript.jar'
+	as result_num, modelID, dataID, mismatch
