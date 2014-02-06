@@ -5,6 +5,8 @@ Hadoop MapReduce over Hive based implementation of attributed network pattern ma
 
 #Overview
 
+![image](PM2.png)
+
 This code performs attributed network pattern matching between a model (or query) graph and a data graph. We generally expect that model graphs are small (~10-100 nodes) while data graphs can be very, very large (millions of nodes, tens-hundreds of millions of edges). While some details of this code are tied to the execution framework (Hive), the processing technique used (MapReduce) and the datasets processed (Bitcoin, Akamai datasets), the core of the code is general and designed to be reusable. 
 
 We are constantly exploring new processing techniques and data frameworks (e.g. BSP w/ Giraph, Spark/GraphX, Titan/Blueprints) and look forward to updating this repository with our findings.
