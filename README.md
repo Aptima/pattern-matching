@@ -103,7 +103,7 @@ Where if the row is an edge, source_edge_ID and destination_edge_ID, and amount 
 
 # Contact
 
-Feel free to reach out to us at <pattern_matching@aptima.com> 
+Feel free to reach out to us at [pattern_matching@aptima.com](mailto:pattern_matching@aptima.com)
 
 [www.aptima.com](www.aptima.com)
 
