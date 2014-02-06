@@ -101,5 +101,11 @@ Bitcoin uses a table format like:
 
 Where if the row is an edge, source_edge_ID and destination_edge_ID, and amount will be populated and node, in degree, out degree, incoming sum, and outoing sum will be null. If the row is a node, this will be reversed. Date/Time is populated for both types.
 
+# Contact
+
+Feel free to reach out to us at [pattern_matching@aptima.com](pattern_matching@aptima.com) 
+
+[www.aptima.com](www.aptima.com)
+
 
 
