@@ -14,7 +14,17 @@ public class BeliefPropagationMath {
 
 	public static boolean _is_1_to_1 = true;// ---GEORGIY added 9/20/2011
 	public static double update_step = 1.0;
-
+	
+	/**Method performs Belief Propagation (BP) where nodes messages are passed between the nodes of the Model Graph, and link messages
+	 * are passed between the links of the Model graph.  The messages hold information on the mismatch between the attributes of 
+	 * the Model and Data graphs.
+	 * 
+	 * @param modelNodes			An array of the nodes in the Model Graph
+	 * @param modelRelations		An array of the relations in the Model Graph (links between nodes)
+	 * @param dataNodeCount			An integer that holds the number of nodes in the Data Graph
+	 * @param mismatches			MismatchValues holds the mismatches between attributes of node/link in model and data graphs
+	 * @param numIterations			An integer that holds the maximum number of iterations for BP to be performed
+	 */
 	public static void performBeliefPropagation(BPMathModelNode[] modelNodes, BPMathModelRelation[] modelRelations,
 			int dataNodeCount, MismatchValues mismatches, int numIterations) {
 		// dataModelNodeMismatch is double[dataNodeCount][modelNodes.size()]
@@ -44,6 +54,16 @@ public class BeliefPropagationMath {
 		// print(modelNodes, modelRelations, context, false, false, true);
 	}
 
+	
+	/**Method prints the information of interest to the console.
+	 * Information of interest is specified by setting the appropriate boolean variables to true
+	 * 
+	 * @param modelNodes			Array of the nodes in the Model Graph
+	 * @param modelRelations		Array if the relations/links in the Model Graph
+	 * @param printL				Boolean variable to print outgoing (L) and incoming (LR) link information
+	 * @param printMu				Boolean variable to print the messages sent between nodes in Model Graph
+	 * @param printP				Boolean variable to print the probabilities that are encoded within the messages
+	 */
 	public static void print(BPMathModelNode[] modelNodes, BPMathModelRelation[] modelRelations, boolean printL,
 			boolean printMu, boolean printP) {
 //		if (context != null)
@@ -81,6 +101,10 @@ public class BeliefPropagationMath {
 		}
 	}
 
+	/**Method prints the outgoing (L) and incoming (LR) relation information
+	 * 
+	 * @param list					A double list that holds information contained within outgoing (L) and incoming (LR) links within the Model Graph
+	 */
 	public static void printLorLR(ArrayList<Double> list) {
 		String s = "";
 		for (int i = 0; i < list.size(); i++) {
@@ -89,7 +113,12 @@ public class BeliefPropagationMath {
 		}
 		System.out.println(s);
 	}
-
+	
+	/**Method prints the messages between nodes in Model Graph
+	 * 
+	 * @param list					A list that contains message that contains information of the mismatch between a node in 
+	 * 								the Model graph and the approriate node in the Data Graph
+	 */
 	public static void printMu(ArrayList<DataNodeAndMu> list) {
 		String s = "";
 		for (int i = 0; i < list.size(); i++) {
@@ -98,7 +127,12 @@ public class BeliefPropagationMath {
 		}
 		System.out.println(s);
 	}
-
+	
+	/**Method prints the probabilities contained within the messages Mu
+	 * 
+	 * @param list					ArrayList<DataNodeAndMu> - A list that contains message that contains probability of a node in the Model Graph and a 
+	 * 								node within the Data Graph
+	 */
 	public static void printProb(ArrayList<DataNodeAndMu> list) {
 		String s = "";
 		// get max val
@@ -120,6 +154,13 @@ public class BeliefPropagationMath {
 
 	}
 
+	/**Method performs a single iteration of the BP algorithm
+	 * 
+	 * @param modelNodes			Array of the nodes in the Model Graph
+	 * @param modelRelations		Array of the relations in the Model Graph	
+	 * @param mismatches			Mismatch values of attributes between nodes/relations in Model and Data graphs
+	 */
+	
 	private static void performIteration(BPMathModelNode[] modelNodes, BPMathModelRelation[] modelRelations, MismatchValues mismatches) {
 
 		// /////////////////// L/LR updates
@@ -184,6 +225,13 @@ public class BeliefPropagationMath {
 		// print(modelNodes, modelRelations, context, false, false, true);
 	}
 
+	/**Method updates the messages that are sent between nodes and links based on the mismatch values
+	 * 
+	 * @param modelNode				Specific node within Model Graph
+	 * @param nLink					A list of all the outgoing links from that node
+	 * @param nLinkReverse			A list of all the incoming links from that node
+	 * @param mismatches			The mismatches between attributes of nodes/links between Model and Data Graphs
+	 */
 	public static void updateMu(BPMathModelNode modelNode, ArrayList<ArrayList<Double>> nLink,
 			ArrayList<ArrayList<Double>> nLinkReverse, MismatchValues mismatches) {
 		ArrayList<DataNodeAndMu> nodeMuVector = modelNode.getMu();
@@ -249,18 +297,45 @@ public class BeliefPropagationMath {
 		}
 	}
 
+	/**Method updates the mismatch of a particular outgoing relation in the Model Graph with all other relevant relations in the Data Graph
+	 * 
+	 * @param r								Specific outgoing relation from a node
+	 * @param rMuOfM						Message that is being passed from the relation						
+	 * @param mismatchProvider				TODO: NOT SURE WHERE THIS INTEFACE IS TO BE OVERRIDDEN!!!	
+	 * @param mismatchRelationshipType		TODO: Predecessor and Successor sound like they are previous and next iteration? Is that correct?
+	 * @return
+	 */
 	public static ArrayList<Double> updateLink(BPMathModelRelation r, ArrayList<DataNodeAndMu> rMuOfM,
 			RelationshipMismatchProvider mismatchProvider, MismatchRelationshipType mismatchRelationshipType) {
 		String linkMismatchPrefix = r.getBaseRelation().getFromNode() + "," + r.getBaseRelation().getToNode() + ",";
 		return updateLorLR(r.getLink(), rMuOfM, true, r.getLinkReverse(), linkMismatchPrefix, mismatchProvider, mismatchRelationshipType);
 	}
-
+	
+	/**Method updates the mismatch of a particular incoming relation in the Model Graph with all other relevant relations in the Data Graph
+	 * 
+	 * @param r								Specific incoming relation from a node
+	 * @param rMuOfK						Message that is being passed from the relation						
+	 * @param mismatchProvider				TODO: NOT SURE WHERE THIS INTEFACE IS TO BE OVERRIDDEN!!!	
+	 * @param mismatchRelationshipType		TODO: Predecessor and Successor sound like they are previous and next iteration? Is that correct?
+	 * @return
+	 */
 	public static ArrayList<Double> updateLinkReverse(BPMathModelRelation r, ArrayList<DataNodeAndMu> rMuOfK,
 			RelationshipMismatchProvider mismatchProvider, MismatchRelationshipType mismatchRelationshipType) {
 		String linkMismatchPrefix = r.getBaseRelation().getFromNode() + "," + r.getBaseRelation().getToNode() + ",";
 		return updateLorLR(r.getLinkReverse(), rMuOfK, false, r.getLink(), linkMismatchPrefix, mismatchProvider, mismatchRelationshipType);
 	}
 
+	/**
+	 * 
+	 * @param toUpdate							List of Relation attributes that need to be updated
+	 * @param relatedMu							Message that is being passed from the relation	
+	 * @param mismatchSourceFirst				Boolean variable that if true checks mismatch between "From" node information first
+	 * @param otherLorLR						List of Relation attributes of link in opposite direction
+	 * @param linkMismatchPrefix				String that holds the From and To node names in "From_Node_Name,ToNodeName," format
+	 * @param mismatchProvider					TODO: NOT SURE WHERE THIS INTEFACE IS TO BE OVERRIDDEN!!!	
+	 * @param mismatchRelationshipType			TODO: Predecessor and Successor sound like they are previous and next iteration? Is that correct?
+	 * @return	ArrayList<Double>				Updated relation information				
+	 */
 	private static ArrayList<Double> updateLorLR(ArrayList<Double> toUpdate, ArrayList<DataNodeAndMu> relatedMu,
 			boolean mismatchSourceFirst, ArrayList<Double> otherLorLR, String linkMismatchPrefix,
 			RelationshipMismatchProvider mismatchProvider, MismatchRelationshipType mismatchRelationshipType) {
