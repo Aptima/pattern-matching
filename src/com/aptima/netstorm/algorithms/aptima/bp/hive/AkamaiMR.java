@@ -5,8 +5,17 @@ import com.aptima.netstorm.algorithms.aptima.bp.network.AttributedModelNode;
 import com.aptima.netstorm.algorithms.aptima.bp.network.AttributedModelRelation;
 import com.aptima.netstorm.algorithms.aptima.bp.network.ModelAttributeConstraints;
 
+/**Abstract class for the Map Reduce functionality of the Akamai example
+ * 
+ * @author Aptima
+ *
+ */
 public abstract class AkamaiMR extends MRBase {
 
+	/**Constructor that takes in an array of string arguments
+	 * 
+	 * @param args
+	 */
 	public AkamaiMR(String[] args) {
 
 		super(args);

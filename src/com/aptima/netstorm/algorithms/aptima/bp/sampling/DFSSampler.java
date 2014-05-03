@@ -18,6 +18,12 @@ import com.aptima.netstorm.algorithms.aptima.bp.MismatchValues;
 import com.aptima.netstorm.algorithms.aptima.bp.RelationshipMismatchProvider.MismatchRelationshipType;
 //import org.apache.log4j.Logger;
 
+/**Class is for a sampler that sorts the maximum likelihood matches and sorts them.  We may have a 
+ * lot of mismatches so this sampler will choose over a distribution of the most likely ones to return
+ * 
+ * @author Aptima
+ *
+ */
 public class DFSSampler implements Sampler {
 
 	// private Logger mLogger; // general logger
@@ -34,18 +40,27 @@ public class DFSSampler implements Sampler {
 	private boolean firstTopLevelIteration = true;
 	private HashMap<Integer, String> recLevelLog = new HashMap<Integer, String>();
 
-	// Contains sorted dataNodeAndMu information
+	/**
+	 *  Contains sorted dataNodeAndMu information
+	 */
 	private BPMathModelNode[] modelNodes;
 
-	// List of relationships that need to be checked for each model node
-	// Assumes that the ModelNodes are analyzed in the order listed in
+	/**
+	 * List of relationships that need to be checked for each model node
+	 * Assumes that the ModelNodes are analyzed in the order listed in
 	// the <modelNodes> list.
+	 */
+	
 	private Map<Integer, List<BPMathModelRelation>> relationshipConstraints;
 
-	// the number of data nodes in the data network
+	/**
+	 * the number of data nodes in the data network
+	 */
 	private int dataNodeCount;
 
-	// limit samples and max recursionDepth
+	/**
+	 *  limit samples and max recursionDepth
+	 */
 	private int maxSamplesToGenerate;
 	// Replacing probDecrFactor with slider mismatch
 	// private float probDecrFactor; // search from mu=ln(p) to minMu=ln(probDecrFactor*p) at each level of recursion
@@ -97,6 +112,25 @@ public class DFSSampler implements Sampler {
 
 	private HashMap<Integer, String> DataNodeToID;
 
+	/**Constructor Samples the results after BP.  After BP runs, we have notional probabilities for individual 
+	 * matches.  Sampler strings those all together and produces a sample/match.  
+	 * Match the first model node to a data node, and then the next likely one.  
+	 * Back thing out if it goes down to a hole.  Also equivalent matches are taken into account 
+	 * because things could be symmetric.
+	 * 
+	 * @param maxSamplesToGenerate				limit samples and max recursionDepth
+	 * @param dataNodeCount						number of data nodes
+	 * @param mismatches						the node and relation mismatches
+	 * @param modelNodes						the model nodes
+	 * @param modelRelations					the model relations
+	 * @param DataNodeToID						ID is integer of data node and String is the name of the data node
+	 * @param probDecrFactor					TODO: Check: Seems like it is set with the slider as part of the threshold			
+	 * @param maxBranchingFactor				Follow at most maxBranchingFactor links at each level of recursion
+	 * @param maxTopLevelIterations				Consider at most maxTopLevelIterations nodes at the top level
+	 * @param maxRecLevelIterations				Consider at most maxRecLevelIterations nodes at each subsequent level
+										// (only the ones with compatible link information turn into branches
+	 * @param sliderValue						Sets threshold from a slider
+	 */
 	public DFSSampler(int maxSamplesToGenerate, int dataNodeCount, MismatchValues mismatches, BPMathModelNode[] modelNodes,
 			BPMathModelRelation[] modelRelations, HashMap<Integer, String> DataNodeToID, double probDecrFactor,
 			int maxBranchingFactor, int maxTopLevelIterations, int maxRecLevelIterations, double sliderValue) {
@@ -303,6 +337,10 @@ public class DFSSampler implements Sampler {
 		return s.toString();
 	}
 
+	/**Method generates the samples described in the constructor
+	 * 
+	 * @return boolean  Did we reach the max sample size? return true, otherwise, false
+	 */
 	public boolean generateSamples() {
 
 		BPMathModelNode mNode1 = this.modelNodes[0];

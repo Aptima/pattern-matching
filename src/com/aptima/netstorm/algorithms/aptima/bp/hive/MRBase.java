@@ -17,7 +17,11 @@ public class MRBase {
 	protected static double sliderValue = 1.0;
 
 	protected static double mismatchThreshold = 0.0;
-
+	
+	/**
+	 * 
+	 * @param args
+	 */
 	public MRBase(String[] args) {
 		
 		calcSliderMismatch();

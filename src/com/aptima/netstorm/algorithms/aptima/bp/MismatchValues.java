@@ -6,7 +6,14 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import com.aptima.netstorm.algorithms.aptima.bp.sampling.RelationshipForSample;
-
+/**Defines a class for model and data
+ * 1) Node mismatches
+ * 2) Relation FROM mismatches (Predecessor)
+ * 3) Relation TO mismatches (Successor)
+ * 
+ * @author Aptima
+ *
+ */
 public class MismatchValues implements RelationshipMismatchProvider {
 
 	/**
@@ -36,6 +43,12 @@ public class MismatchValues implements RelationshipMismatchProvider {
 
 	private int dataNodeCount;
 
+	/**Constructor initializes:
+	 *  modelDataNodeMismatch = new HashMap<Integer, HashMap<Integer, Float>>()
+	 *  successorRelationMismatch = new HashMap<String, HashMap<Integer, TreeSet<MismatchValueAndRelationship>>>()
+	 *  predecessorRelationMismatch to = new HashMap<String, HashMap<Integer, TreeSet<MismatchValueAndRelationship>>>()
+	 * 
+	 */
 	public MismatchValues() {
 		this.modelDataNodeMismatch = new HashMap<Integer, HashMap<Integer, Float>>();
 		this.successorRelationMismatch = new HashMap<String, HashMap<Integer, TreeSet<MismatchValueAndRelationship>>>();

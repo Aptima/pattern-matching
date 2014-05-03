@@ -1,5 +1,10 @@
 package com.aptima.netstorm.algorithms.aptima.bp.mismatch;
 
+/**Enumerator holds all the operations that will be defined over the graph
+ * Range, >=, <=, =, >, <, ""
+ * @author Aptima
+ *
+ */
 public enum AttributeConstraintVocab {
 	RANGE("RANGE"),
 	GREATER_THAN_OR_EQUAL_TO(">="), 
@@ -26,6 +31,11 @@ public enum AttributeConstraintVocab {
 		this.matchString = matchString;
 	}
 	
+	/**Method returns an AttributeConstraintVocab that matches the constraint input 
+	 * 
+	 * @param constraint 	A constraint in the form  >=, <=, =, >, <, ""
+	 * @return				AttributeConstraintVocab that matches the operator string that was input
+	 */
 	public static AttributeConstraintVocab matchString(String constraint)
 	{
 		// Making this a list of if statements instead of a loop
@@ -49,6 +59,9 @@ public enum AttributeConstraintVocab {
 		return NO_SPECIAL_CHARACTERS;
 	}
 	
+	/**Method overrides the toString method to be able to return a String instead of a symbol
+	 * 
+	 */
 	@Override
 	public String toString() {
 		// Override required because symbols such as ">" cannot be used in an enum.

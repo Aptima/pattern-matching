@@ -3,6 +3,17 @@ package com.aptima.netstorm.algorithms.aptima.bp.mismatch;
 public class DefaultAttributeMismatchProcessor implements AttributeMismatchProcessor {
 	private double scaleFactorForUnknowns = 0.2;
 
+	/**Method computes the mismatch between the attribute value of a model and data element
+	 * in the most simplest of cases (namely, if neither have info in them, OR, the constraint to be used
+	 * is unknown
+	 * 
+	 * @param modelValue			String that holds the attribute of the model element
+	 * @param dataValue				String that holds the attribute of the data element
+	 * @return						double = 0 IF model has no info,  model constraint is unspecified, or it equals data element
+	 * 								double = 1 IF data has no info, data == "\\N" a hive specific character, 
+	 *								double = preset scale factor IF data constraint is unspecified
+	 *								double = -1 if it is not one of these simple cases
+	 */
 	protected double processSimpleCases(String modelValue, String dataValue)
 	{
 		if(modelValue == null) {
@@ -33,6 +44,14 @@ public class DefaultAttributeMismatchProcessor implements AttributeMismatchProce
 		return -1.0;
 	}
 	
+	/**Method gets the mismatch between model and data element if it falls under the category of a "simple case"
+	 * 
+	 * @param modelValue 					String that holds the value of the model element
+	 * @param dataValue						String that holds the value of the data element
+	 * 
+	 * @return 								Double that is 0, 1.0, or a preset scale factor
+	 * 
+	 */
 	public double getMismatch(String modelValue, String dataValue)
 	{
 		double mm = processSimpleCases(modelValue, dataValue);
