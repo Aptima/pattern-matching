@@ -43,6 +43,12 @@ public class NormalizedMismatchCalculator {
 
 	private AttributeMismatchManager attributeMismatchManager;
 
+	/**Constructor that initliazes the model nodes and links to compute the normalized mismatch
+	 * number of node attributes, link attributes, total number of attributes, penalizations are all set in here
+	 * 
+	 * @param modelNodes					Array of model nodes					
+	 * @param modelRelations				Array of model relations
+	 */
 	public NormalizedMismatchCalculator(AttributedModelNode[] modelNodes, 
 			AttributedModelRelation[] modelRelations) {
 		
@@ -82,6 +88,12 @@ public class NormalizedMismatchCalculator {
 			incorrectLinkTypeMismatch.put(r.getId(), perAttributeMismatch * ((double) numAttributesPerLink.get(r.getId())));
 	}
 
+	/**Method computes the mismatch between a model node and the data attribute set
+	 * 
+	 * @param modelNode						Model Node of interest
+	 * @param dataAttributes				Set of data attributes
+	 * @return								Float mismatch value that is the mismatch between a model node and the data attribute set
+	 */
 	public float ComputeMismatch(AttributedModelNode modelNode, DataAttributeSet dataAttributes) {
 		
 		if (modelNode.getConstraintSet().getType() != null &&
@@ -90,7 +102,13 @@ public class NormalizedMismatchCalculator {
 
 		return (float) getMismatch(modelNode.getConstraintSet(), dataAttributes);
 	}
-
+	
+	/**Method computes the mismatch between a model link and the data attribute set
+	 * 
+	 * @param modelRelation					Model link of interest
+	 * @param dataAttributes				Set of data attributes
+	 * @return								Float mismatch value that is the mismatch between a model node and the data attribute set
+	 */
 	public float ComputeMismatch(AttributedModelRelation modelRelation, DataAttributeSet dataAttributes) {
 		
 		if (modelRelation.getConstraintSet().getType() != null &&
@@ -108,9 +126,9 @@ public class NormalizedMismatchCalculator {
 	 * Counts the total number of mismatched attributes. Partial matches receive a value between 0 and 1. Uses
 	 * perAttributeMismatch to normalize the mismatches across the model network.
 	 * 
-	 * @param modelElement
-	 * @param dataElement
-	 * @return
+	 * @param modelElement					Model attributes				
+	 * @param dataElement					Data attributes
+	 * @return								Double mismatch value between the two attribute sets
 	 */
 	private double getMismatch(ModelAttributeConstraints constraintSet, DataAttributeSet attributeSet) {
 		double mm = 0;
@@ -130,6 +148,10 @@ public class NormalizedMismatchCalculator {
 		return mm * perAttributeMismatch;
 	}
 
+	/**Method gets the mismatch value if a link/relation is not present
+	 * 
+	 * @return						Preset double constant that represents the link not being present
+	 */
 	public double getLinkNotPresentMismatch() {
 		return this.linkNotPresentMismatch;
 	}
@@ -174,10 +196,10 @@ public class NormalizedMismatchCalculator {
 	 * 
 	 * See getTotalMissingLinkPenalty for more information.
 	 * 
-	 * @param numLinks
-	 * @param numNodes
-	 * @param numNodeAttributes
-	 * @return
+	 * @param numLinks								Integer that is the number of links
+	 * @param numNodes								Integer that is the number of nodes
+	 * @param numNodeAttributes						Integer that is the number of attributes
+	 * @return										Double that is the mismatch penalty
 	 */
 	private double getMissingLinkPenalty(int numLinks, int numNodes, int numNodeAttributes) {
 		return getTotalMissingLinkPenalty(numNodes, numNodeAttributes) / (double) numLinks;

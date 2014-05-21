@@ -2,6 +2,11 @@ package com.aptima.netstorm.algorithms.aptima.bp.mismatch;
 
 public class LessThanOrEqualIntegerProcessor extends DefaultAttributeMismatchProcessor {
 
+	/**Class is a processor that checks for less than or equal in the attributes between model and data elements
+	 * 
+	 * @author Aptima
+	 *
+	 */
 	public double getMismatch(String modelConstraint, String dataValue) {
 
 		// parse out of equality + data string
@@ -31,14 +36,15 @@ public class LessThanOrEqualIntegerProcessor extends DefaultAttributeMismatchPro
 		}
 	}
 
-	/**
+	/**Method that is the same as getMismatch except takes in string arrays along with an index of the
+	 * element of interest
 	 * Returns a value between 0 and 1. 0 = perfect match, 1 = maximum mismatch.
 	 * 
-	 * @param modelVals
-	 * @param dataVals
-	 * @param index
-	 * @param rangeUsed
-	 * @return
+	 * @param modelVals				String array of all of the model values					
+	 * @param dataVals				String array of all the data values
+	 * @param index					Integer index of the values within the arrays to be compared
+	 * @param rangeUsed				Unused boolean variable
+	 * @return						double that is the mismatch between the model and data elements
 	 */
 	public static double getMismatchLE(String[] modelVals, String[] dataVals, int index, boolean rangeUsed) {
 

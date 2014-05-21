@@ -5,9 +5,22 @@ import com.aptima.netstorm.algorithms.aptima.bp.network.AttributedModelNode;
 import com.aptima.netstorm.algorithms.aptima.bp.network.AttributedModelRelation;
 import com.aptima.netstorm.algorithms.aptima.bp.network.ModelAttributeConstraints;
 
+/**Abstract class for the Map Reduce functionality of the Akamai example
+ * 
+ * @author Aptima
+ *
+ */
 public abstract class AkamaiMR extends MRBase {
 
-	public AkamaiMR(String[] args) {
+	/**Constructor that takes in an array of string arguments
+	 * 
+	 * @param args
+	 */
+	public AkamaiMR() {
+
+		super();
+		// Test pattern. Ultimately, this should be read from a string argument passed into the main function.
+		
 
 		// TODO: implement this or replace with something that reads from a file.
 		createTestPattern();

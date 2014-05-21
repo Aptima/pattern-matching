@@ -255,8 +255,8 @@ public class JobRunner {
 	      }
 	}
 
-	//public static void main(String[] args) {
-	//	JobRunner jr = new JobRunner();
-	//	jr.run("com.aptima.netstorm.algorithms.aptima.bp.hive.BitcoinMapper", "com.aptima.netstorm.algorithms.aptima.bp.hive.BitcoinReducer", "bitcoin_inout_edges", "aptima_pm_result", "testQuery.txt");
-	//}
+	public static void main(String[] args) {
+		JobRunner jr = new JobRunner();
+		jr.run("com.aptima.netstorm.algorithms.aptima.bp.hive.BitcoinMapper", "com.aptima.netstorm.algorithms.aptima.bp.hive.BitcoinReducer", "bitcoin_inout_edges", "aptima_pm_result", "testQuery.txt");
+	}
 }

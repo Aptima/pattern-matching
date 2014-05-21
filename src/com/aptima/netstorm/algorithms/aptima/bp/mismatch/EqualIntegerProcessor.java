@@ -1,7 +1,19 @@
 package com.aptima.netstorm.algorithms.aptima.bp.mismatch;
 
+/**Class is a processor that checks for equality in the attributes between model and data elements
+ * 
+ * @author Aptima
+ *
+ */
 public class EqualIntegerProcessor extends DefaultAttributeMismatchProcessor {
 
+	/**Method gets the mismatch in double format between a model constraint and a data value
+	 * 
+	 * @param modelConstraint				String that specifies the model attribute of interest
+	 * @param dataValue						String that specifies the data value of interest
+	 * 
+	 * @return								double that holds the mismatch between the two
+	 */
 	public double getMismatch(String modelConstraint, String dataValue) {
 		
 		// parse out of equality + data string
@@ -30,14 +42,15 @@ public class EqualIntegerProcessor extends DefaultAttributeMismatchProcessor {
 		}
 	}
 
-	/**
+	/**Method that is the same as getMismatch except takes in string arrays along with an index of the
+	 * element of interest
 	 * Returns a value between 0 and 1. 0 = perfect match, 1 = maximum mismatch.
 	 * 
-	 * @param modelVals
-	 * @param dataVals
-	 * @param index
-	 * @param rangeUsed
-	 * @return
+	 * @param modelVals				String array of all of the model values					
+	 * @param dataVals				String array of all the data values
+	 * @param index					Integer index of the values within the arrays to be compared
+	 * @param rangeUsed				Unused boolean variable
+	 * @return						double that is the mismatch between the model and data elements
 	 */
 	public static double getMismatchE(String[] modelVals, String[] dataVals, int index, boolean rangeUsed) {
 

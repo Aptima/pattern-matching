@@ -8,6 +8,22 @@ public class RangeProcessor extends DefaultAttributeMismatchProcessor {
 	// then, based on the whether the operand uses equality or is 'flipped' (>)
 	// populates the objects low and high seen, equal, and value
 	// these values are then used to evaluate the data value itself against the range
+	/**splits the input by "operand" 
+	then, based on the whether the operand uses equality or is 'flipped' (>)
+	 populates the objects low and high seen, equal, and value
+	these values are then used to evaluate the data value itself against the range
+	 * 
+	 * @param operand					String operation - (e.g. >=)
+	 * @param input						The operation that needs to be processed					
+	 * @param lowValue					If it's "flipped" the lowValue represents the lower number in a>b (b in this case)
+	 * @param highValue					If it's "flipped" the lowValue represents the higher number in a>b (a in this case)
+	 * @param lowSeen					Boolean that indicates a low was set
+	 * @param lowEqual					Boolean that indicates a low was set, but the operand is equal
+	 * @param highSeen					Boolean that indicates a high was set
+	 * @param highEqual					Boolean that indicates a high was set, but the operand is equal
+	 * @param rangeSeen					Boolean that verifies you hit the end with ""		
+	 * @return							Boolean that is true if comparison took place and false if not		
+	 */
 	private static boolean processSplit(String operand, String input, WrapDouble lowValue, WrapDouble highValue,
 			WrapBoolean lowSeen, WrapBoolean lowEqual, WrapBoolean highSeen, WrapBoolean highEqual, WrapBoolean rangeSeen) {
 		if (input.contains(operand)) {
@@ -64,6 +80,13 @@ public class RangeProcessor extends DefaultAttributeMismatchProcessor {
 		return false;
 	}
 	
+	/**Method gets the mismatch between a two strings of a model and data element
+	 * 
+	 * @param modelValue			String that holds the value of the model to compare
+	 * @param dataValue				String that holds the value of the data to compare
+	 * 
+	 * @return						double mismatch between the two strings
+	 */
 	public double getMismatch(String modelValue, String dataValue)
 	{
 		double mm = super.processSimpleCases(modelValue, dataValue);
@@ -167,11 +190,11 @@ public class RangeProcessor extends DefaultAttributeMismatchProcessor {
 	/**
 	 * Returns a value between 0 and 1.  0 = perfect match, 1 = maximum mismatch.
 	 * 
-	 * @param modelVals
-	 * @param dataVals
-	 * @param index
-	 * @param rangeUsed
-	 * @return
+	 * @param modelVals					Array of model values
+	 * @param dataVals					Array of data values
+	 * @param index						Index of interest within arrays to compare
+	 * @param rangeUsed					Unused boolean
+	 * @return							double that is represents the mismatch
 	 */
 	public static double getPercentageMismatchedFinancialTransfer(String[] modelVals, String[] dataVals, int index,
 			boolean rangeUsed) {

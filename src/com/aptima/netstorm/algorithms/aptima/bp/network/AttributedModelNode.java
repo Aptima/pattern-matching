@@ -1,5 +1,10 @@
 package com.aptima.netstorm.algorithms.aptima.bp.network;
 
+/**Extends the node properties from AdjacencyListNode to attach a set of constraints to make it an
+ * Attributed model node
+ * @author Aptima
+ *
+ */
 public class AttributedModelNode extends AdjacencyListNode {
 	
 	private ModelAttributeConstraints constraintSet = new ModelAttributeConstraints();

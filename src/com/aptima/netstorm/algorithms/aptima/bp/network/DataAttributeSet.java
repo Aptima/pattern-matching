@@ -4,6 +4,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 
+/**Class that defines a set of attributes for the data nodes in the format HashMap<String, String> attributes
+ * 
+ * @author meslami
+ *
+ */
 public class DataAttributeSet {
 	/**
 	 * Optional field that indicates node or relation type.  The type often constrains

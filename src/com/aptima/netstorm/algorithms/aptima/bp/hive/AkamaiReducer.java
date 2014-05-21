@@ -33,7 +33,7 @@ public class AkamaiReducer extends AkamaiMR implements Reducer {
 
 	public AkamaiReducer(String[] args) {
 
-		super(args);
+		super();
 
 		mismatches = new MismatchValues();
 

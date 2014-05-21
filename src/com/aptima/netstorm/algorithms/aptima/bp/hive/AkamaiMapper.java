@@ -9,6 +9,11 @@ import org.apache.hadoop.hive.contrib.mr.Output;
 import com.aptima.netstorm.algorithms.aptima.bp.mismatch.NormalizedMismatchCalculator;
 import com.aptima.netstorm.algorithms.aptima.bp.network.DataAttributeSet;
 
+/**Class forms the mapper for the Akamai example
+ * 
+ * @author Aptima
+ *
+ */
 public class AkamaiMapper extends AkamaiMR implements Mapper {
 
 	private static NormalizedMismatchCalculator mismatchCalculator;
@@ -27,7 +32,7 @@ public class AkamaiMapper extends AkamaiMR implements Mapper {
 
 	public AkamaiMapper(String[] args) {
 
-		super(args);
+		super();
 		mismatchCalculator = new NormalizedMismatchCalculator(modelNodes, modelRelations);
 		outputMapBuffer = new String[5];
 		nodeRecord = new String[5];

@@ -7,9 +7,9 @@ public interface AttributeMismatchProcessor {
 	 * exact match) and 1.0 (for a complete mismatch).  Values between 0 and 1 indicate a
 	 * partial match.
 	 * 
-	 * @param modelAttributeValue
-	 * @param dataAttributeValue
-	 * @return Mismatch value between 0 and 1. 
+	 * @param modelAttributeValue						The value of a specific attribute in the model graph
+	 * @param dataAttributeValue						The value of a specific attribute in the data graph
+	 * @return  										Double mismatch value between 0 and 1.
 	 */
 	public double getMismatch(String modelAttributeValue, String dataAttributeValue);
 }
