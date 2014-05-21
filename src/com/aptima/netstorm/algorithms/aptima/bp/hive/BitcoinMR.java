@@ -7,12 +7,9 @@ import com.aptima.netstorm.algorithms.aptima.bp.network.ModelAttributeConstraint
 
 public abstract class BitcoinMR extends MRBase {
 
-	public static boolean constrainFlow = false;
+	//public static boolean constrainFlow = false;
 
 	public BitcoinMR(String[] args) {
-
-		// Test pattern. Ultimately, this should be read from a string argument passed into the main function.
-		super(args);
 
 		// TODO: implement this or replace with something that reads from a file.
 		// mixing();

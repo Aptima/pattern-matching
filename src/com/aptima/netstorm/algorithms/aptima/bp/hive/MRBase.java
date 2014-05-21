@@ -12,13 +12,14 @@ public class MRBase {
 
 	public static String DIR_IN = "IN";
 	public static String DIR_OUT = "OUT";
+	public static boolean constrainFlow = false;
 	
 	// 1.0 = exact match, 0.0 = completely inexact match
 	protected static double sliderValue = 1.0;
 
 	protected static double mismatchThreshold = 0.0;
 
-	public MRBase(String[] args) {
+	public MRBase() {
 		
 		calcSliderMismatch();
 		

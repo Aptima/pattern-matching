@@ -16,6 +16,7 @@ public class AdjacencyListNode {
 	private static final long serialVersionUID = 6628598656375113647L;
 	private int id;
 	private String sID;  // Printable version of the id
+	private int fileId;
 	
 	private ArrayList<Integer> precedessorRelations = new ArrayList<Integer>();
 	private ArrayList<Integer> successorRelations = new ArrayList<Integer>();
@@ -65,6 +66,14 @@ public class AdjacencyListNode {
 
 	public void addSuccessorRelation(int relationId) {
 		successorRelations.add(relationId);
+	}
+	
+	public int getFileId() {
+		return this.fileId;
+	}
+	
+	public void setFileId(int fileId) {
+		this.fileId = fileId;
 	}
 	
 	@Override

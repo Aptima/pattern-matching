@@ -7,10 +7,12 @@ import org.apache.hadoop.hive.contrib.mr.Mapper;
 import org.apache.hadoop.hive.contrib.mr.Output;
 
 import com.aptima.netstorm.algorithms.aptima.CalendarHelper;
+import com.aptima.netstorm.algorithms.aptima.bp.ModelGraph;
 import com.aptima.netstorm.algorithms.aptima.bp.mismatch.NormalizedMismatchCalculator;
+import com.aptima.netstorm.algorithms.aptima.bp.network.AttributedModelGraph;
 import com.aptima.netstorm.algorithms.aptima.bp.network.DataAttributeSet;
 
-public class BitcoinMapper extends BitcoinMR implements Mapper {
+public class BitcoinMapper extends MRBase implements Mapper, ModelGraph { // BitcoinMR 
 
 	// BITCOIN columns
 	public static String COL_BITCOIN_AMT = "amt";
@@ -30,10 +32,9 @@ public class BitcoinMapper extends BitcoinMR implements Mapper {
 	private static int rowCount = 0;
 	private static int maxRowCount = 10;
 
-	public BitcoinMapper(String[] args) {
+	public BitcoinMapper() {
 
-		super(args);
-		mismatchCalculator = new NormalizedMismatchCalculator(modelNodes, modelRelations);
+		//mismatchCalculator = new NormalizedMismatchCalculator(modelNodes, modelRelations);
 		outputMapBuffer = new String[6];
 		nodeRecord = new String[4];
 
@@ -175,5 +176,15 @@ public class BitcoinMapper extends BitcoinMR implements Mapper {
 				e.printStackTrace();
 			}
 		}
+	}	
+
+	@Override
+	public void input(AttributedModelGraph graph) {
+		modelNodes = graph.getNodes();
+		modelRelations = graph.getRelations();
+		
+		// This used to be in constructor. Now we read model graph from file instead of hard coding it.
+		mismatchCalculator = new NormalizedMismatchCalculator(modelNodes, modelRelations);
+		
 	}
 }

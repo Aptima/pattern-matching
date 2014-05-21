@@ -9,10 +9,6 @@ public abstract class AkamaiMR extends MRBase {
 
 	public AkamaiMR(String[] args) {
 
-		super(args);
-		// Test pattern. Ultimately, this should be read from a string argument passed into the main function.
-		
-
 		// TODO: implement this or replace with something that reads from a file.
 		createTestPattern();
 	}

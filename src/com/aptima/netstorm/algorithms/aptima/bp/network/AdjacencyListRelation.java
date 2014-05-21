@@ -10,6 +10,7 @@ package com.aptima.netstorm.algorithms.aptima.bp.network;
 public class AdjacencyListRelation {
 	private static final long serialVersionUID = -7900237807701383677L;
 	private int id;
+	private int fileId;
 	private int fromNode;
 	private int toNode;
 	private String sFrom;  // Printable fromNode
@@ -60,5 +61,13 @@ public class AdjacencyListRelation {
 	
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public int getFileId() {
+		return this.fileId;
+	}
+	
+	public void setFileId(int fileId) {
+		this.fileId = fileId;
 	}
 }

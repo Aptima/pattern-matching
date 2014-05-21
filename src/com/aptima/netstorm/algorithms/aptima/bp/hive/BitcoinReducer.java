@@ -13,12 +13,14 @@ import com.aptima.netstorm.algorithms.aptima.bp.BPMathModelNode;
 import com.aptima.netstorm.algorithms.aptima.bp.BPMathModelRelation;
 import com.aptima.netstorm.algorithms.aptima.bp.BeliefPropagationMath;
 import com.aptima.netstorm.algorithms.aptima.bp.MismatchValues;
+import com.aptima.netstorm.algorithms.aptima.bp.ModelGraph;
+import com.aptima.netstorm.algorithms.aptima.bp.network.AttributedModelGraph;
 import com.aptima.netstorm.algorithms.aptima.bp.sampling.DFSSampler;
 import com.aptima.netstorm.algorithms.aptima.bp.sampling.RelationshipForSample;
 import com.aptima.netstorm.algorithms.aptima.bp.sampling.RelationshipIDValue;
 import com.aptima.netstorm.algorithms.aptima.bp.sampling.Sample;
 
-public class BitcoinReducer extends BitcoinMR implements Reducer {
+public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 
 	private static MismatchValues mismatches;
 
@@ -37,9 +39,7 @@ public class BitcoinReducer extends BitcoinMR implements Reducer {
 
 	// private static String currentTimeReduce = "";
 
-	public BitcoinReducer(String[] args) {
-
-		super(args);
+	public BitcoinReducer() {
 
 		mismatches = new MismatchValues();
 
@@ -383,5 +383,11 @@ public class BitcoinReducer extends BitcoinMR implements Reducer {
 				// System.err.println("reporter:counter:APTIMA,NODE_INEXACT_MATCHES,1");
 			}
 		}
+	}
+
+	@Override
+	public void input(AttributedModelGraph graph) {
+		modelNodes = graph.getNodes();
+		modelRelations = graph.getRelations();		
 	}
 }
