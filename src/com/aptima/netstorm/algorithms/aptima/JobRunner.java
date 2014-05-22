@@ -153,7 +153,7 @@ public class JobRunner {
 		"	SORT BY timeWindow ASC, isLink ASC) temp\n" +
 		"INSERT OVERWRITE TABLE " + outputTableName + "\n" +
 		"	REDUCE temp.timeWindow, temp.isLink, temp.srcID, temp.destID, temp.mismatchVector, temp.amount\n" +
-		"	USING 'java -cp PM-0.0.1-SNAPSHOT.jar:hive_contrib.jar com.aptima.netstorm.algorithms.aptima.bp.hive.HiveReduceScript " + reducer + "'\n" +
+		"	USING 'java -cp PM-0.0.1-SNAPSHOT.jar:hive_contrib.jar com.aptima.netstorm.algorithms.aptima.bp.hive.HiveReduceScript " + reducer + patternFile + "'\n" +
 		"	AS result_num, modelID, dataID, mismatch, dir;";
 		return hql;
 	}

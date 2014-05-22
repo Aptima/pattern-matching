@@ -28,7 +28,7 @@ import com.tinkerpop.blueprints.util.io.graphson.GraphSONReader;
 /**
  * Hive Streaming Map script used to run pattern matching on a network stored in a Hive table.
  * 
- * Current targets a Bitcoin table
+ * A class to run map/reduce jobs using Apache Hive.
  * 
  * @author ckapopoulos
  *
