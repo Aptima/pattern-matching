@@ -141,19 +141,22 @@ public class JobRunner {
 		String hql =
 		"add file target/PM-0.0.1-SNAPSHOT.jar;\n" +
 		"add file target/lib/hive-contrib-0.10.0-cdh4.3.0.jar;\n" +
+		"add file target/lib/commons-cli-1.3-SNAPSHOT.jar;\n" +
+		"add file target/lib/blueprints-core-2.5.0.jar;\n" +
+		"add file " + patternFile + ";\n" +
 
-		"set mapred.reduce.tasks=150;\n" +
+		"set mapred.reduce.tasks=24;\n" +
 
 		"FROM (\n" +
 		"	FROM " + inputTableName + "\n" +
-		"	MAP id, source_edge_id, dest_edge_id, dtg, amount,in_degree, out_degree, node, incoming_amount, outgoing_amount\n" +
-		"	USING 'java -cp PM-0.0.1-SNAPSHOT.jar:hive_contrib.jar com.aptima.netstorm.algorithms.aptima.bp.hive.HiveMapScript " + mapper + " " + patternFile + "'\n" +
+		"	MAP id, source_edge_id, dest_edge_id, dtg, amount, in_degree, out_degree, node, incoming_amount, outgoing_amount\n" +
+		"	USING 'java -cp PM-0.0.1-SNAPSHOT.jar:hive_contrib.jar:commons-cli-1.3-SNAPSHOT.jar:blueprints-core-2.5.0.jar com.aptima.netstorm.algorithms.aptima.bp.hive.HiveMapScript " + mapper + " " + patternFile + "'\n" +
 		"	AS isLink, srcID, destID, mismatchVector, timeWindow, amount\n" +
 		"	DISTRIBUTE BY timeWindow\n" +
 		"	SORT BY timeWindow ASC, isLink ASC) temp\n" +
 		"INSERT OVERWRITE TABLE " + outputTableName + "\n" +
 		"	REDUCE temp.timeWindow, temp.isLink, temp.srcID, temp.destID, temp.mismatchVector, temp.amount\n" +
-		"	USING 'java -cp PM-0.0.1-SNAPSHOT.jar:hive_contrib.jar com.aptima.netstorm.algorithms.aptima.bp.hive.HiveReduceScript " + reducer + " " + patternFile + "'\n" +
+		"	USING 'java -cp PM-0.0.1-SNAPSHOT.jar:hive_contrib.jar:commons-cli-1.3-SNAPSHOT.jar:blueprints-core-2.5.0.jar com.aptima.netstorm.algorithms.aptima.bp.hive.HiveReduceScript " + reducer + " " + patternFile + "'\n" +
 		"	AS result_num, modelID, dataID, mismatch, dir;";
 		return hql;
 	}

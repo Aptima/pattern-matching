@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS aptima_pm_result (result_num STRING, modelID STRING, dataID STRING, mismatch STRING, dir STRING);

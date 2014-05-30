@@ -33,7 +33,7 @@ public class BitcoinMapper extends MRBase implements Mapper, ModelGraph { // Bit
 	private static int maxRowCount = 10;
 
 	public BitcoinMapper() {
-
+		System.out.println("Creating BitcoinMapper()");
 		//mismatchCalculator = new NormalizedMismatchCalculator(modelNodes, modelRelations);
 		outputMapBuffer = new String[6];
 		nodeRecord = new String[4];
@@ -46,8 +46,8 @@ public class BitcoinMapper extends MRBase implements Mapper, ModelGraph { // Bit
 	}
 
 	// Read and filter tab-delimited rows from Bitcoin table into dataNodes and dataLinks
-	public void map(String[] record, Output output) throws Exception {
-
+	public void map(String[] record, Output output) {
+		try {
 		/*
 		 * null as id, node as source_edge_ID, null as destination_edge_ID, null as dtg, null as amount, in_degree,
 		 * out_degree, node, incoming_amount, outgoing_amount
@@ -87,6 +87,9 @@ public class BitcoinMapper extends MRBase implements Mapper, ModelGraph { // Bit
 			dataAttributes.addAttribute(COL_BITCOIN_AMT, record[4]);
 
 			filterRelationBasedOnMismatch(record[1], record[2], record[4], dataAttributes, output, record[3]);
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

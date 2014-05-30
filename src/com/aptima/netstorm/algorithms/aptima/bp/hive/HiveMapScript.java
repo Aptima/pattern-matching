@@ -77,6 +77,7 @@ public class HiveMapScript {
 		        Method method = mapperClass.getDeclaredMethod("input", AttributedModelGraph.class);
 		        method.invoke(mapperInstance, attributedModelGraph);
 		        // Run hive job
+		        System.out.println("Run hive job: GenericMR().map(System.in, System.out, (Mapper) mapperInstance);");
 		 		new GenericMR().map(System.in, System.out, (Mapper) mapperInstance); //new BitcoinMapper(args)
 		 	} else {
 		 		throw new ParseException(String.format("Class: [%s] does not implement [%s]!", mapperOption, "ConvertFromGraphSON"));
