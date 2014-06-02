@@ -101,6 +101,7 @@ public class JobRunner {
 			fileWriter.close();
 			
 			// Call hive.
+			System.out.println(String.format("Calling hive using %s.", HQL_PATH));
 			ProcessBuilder hiveProcessBuilder = new ProcessBuilder("hive", "-f", HQL_PATH);
 	        Process hiveProcess = hiveProcessBuilder.start();		
 	        
@@ -108,10 +109,11 @@ public class JobRunner {
 	        OutputRedirector outToConsole = new OutputRedirector(hiveProcess.getErrorStream(), "HIVE_LOG");
 	
 	        outRedirect.start();	        
-	        outToConsole.start();
-	        
+	        outToConsole.start();	       
+	              
 	        hiveProcess.waitFor();
-	        hiveProcess.destroy();
+	        System.out.println(String.format("Hive job call completed."));
+	        hiveProcess.destroy();	        
 	        
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -146,6 +148,7 @@ public class JobRunner {
 		"add file " + patternFile + ";\n" +
 
 		"set mapred.reduce.tasks=24;\n" +
+		"set hive.exec.script.allow.partial.consumption=true;\n" +
 
 		"FROM (\n" +
 		"	FROM " + inputTableName + "\n" +
@@ -157,7 +160,7 @@ public class JobRunner {
 		"INSERT OVERWRITE TABLE " + outputTableName + "\n" +
 		"	REDUCE temp.timeWindow, temp.isLink, temp.srcID, temp.destID, temp.mismatchVector, temp.amount\n" +
 		"	USING 'java -cp PM-0.0.1-SNAPSHOT.jar:hive_contrib.jar:commons-cli-1.3-SNAPSHOT.jar:blueprints-core-2.5.0.jar com.aptima.netstorm.algorithms.aptima.bp.hive.HiveReduceScript " + reducer + " " + patternFile + "'\n" +
-		"	AS result_num, modelID, dataID, mismatch, dir;";
+		"	AS result_num, modelID, dataID, mismatch, dir;\n";
 		return hql;
 	}
 	

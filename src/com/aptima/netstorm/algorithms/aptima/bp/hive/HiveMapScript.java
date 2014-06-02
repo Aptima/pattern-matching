@@ -84,34 +84,34 @@ public class HiveMapScript {
 		 	}
 		 	
 		} catch (ParseException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 			helpFormatter.printHelp( "HiveMapScript", options );			
 		} catch (ClassNotFoundException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 			helpFormatter.printHelp( "HiveMapScript", options );
 		} catch (NoSuchMethodException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 			helpFormatter.printHelp( "HiveMapScript", options );
 		} catch (SecurityException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 			helpFormatter.printHelp( "HiveMapScript", options );
 		} catch (InstantiationException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 			helpFormatter.printHelp( "HiveMapScript", options );
 		} catch (IllegalAccessException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 			helpFormatter.printHelp( "HiveMapScript", options );
 		} catch (IllegalArgumentException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 			helpFormatter.printHelp( "HiveMapScript", options );
 		} catch (InvocationTargetException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 			helpFormatter.printHelp( "HiveMapScript", options );
 		} catch (FileNotFoundException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 			helpFormatter.printHelp( "HiveMapScript", options );
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 			helpFormatter.printHelp( "HiveMapScript", options );
 		} catch (Exception e) {
 			e.printStackTrace();							
