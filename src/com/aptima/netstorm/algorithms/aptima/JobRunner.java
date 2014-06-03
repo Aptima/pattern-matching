@@ -145,7 +145,14 @@ public class JobRunner {
 		"add file target/lib/hive-contrib-0.10.0-cdh4.3.0.jar;\n" +
 		"add file target/lib/commons-cli-1.3-SNAPSHOT.jar;\n" +
 		"add file target/lib/blueprints-core-2.5.0.jar;\n" +
-		"add file " + patternFile + ";\n" +
+		"add file target/lib/jackson-annotations-2.2.2.jar;\n" +
+		"add file target/lib/jackson-core-2.2.2.jar;\n" +
+		"add file target/lib/jackson-core-asl-1.8.8.jar;\n" +
+		"add file target/lib/jackson-databind-2.2.2.jar;\n" +
+		"add file target/lib/jackson-datatype-json-org-2.2.3.jar;\n" +
+		"add file target/lib/jackson-mapper-asl-1.8.8.jar;\n" +
+		"add file target/lib/jettison-1.3.3.jar;\n" +
+		"add file " + patternFile + ";\n" +		
 
 		"set mapred.reduce.tasks=24;\n" +
 		"set hive.exec.script.allow.partial.consumption=true;\n" +
@@ -153,13 +160,37 @@ public class JobRunner {
 		"FROM (\n" +
 		"	FROM " + inputTableName + "\n" +
 		"	MAP id, source_edge_id, dest_edge_id, dtg, amount, in_degree, out_degree, node, incoming_amount, outgoing_amount\n" +
-		"	USING 'java -cp PM-0.0.1-SNAPSHOT.jar:hive_contrib.jar:commons-cli-1.3-SNAPSHOT.jar:blueprints-core-2.5.0.jar com.aptima.netstorm.algorithms.aptima.bp.hive.HiveMapScript " + mapper + " " + patternFile + "'\n" +
+		"	USING 'java -cp " + 
+					"PM-0.0.1-SNAPSHOT.jar:" +
+					"hive-contrib-0.10.0-cdh4.3.0.jar:" + 
+					"commons-cli-1.3-SNAPSHOT.jar:" +
+					"blueprints-core-2.5.0.jar:" +
+					"jackson-annotations-2.2.2.jar:" +
+					"jackson-core-2.2.2.jar:" +
+					"jackson-core-asl-1.8.8.jar:" +
+					"jackson-databind-2.2.2.jar:" +
+					"jackson-datatype-json-org-2.2.3.jar:" +
+					"jackson-mapper-asl-1.8.8.jar:" +
+					"jettison-1.3.3.jar " +
+				"com.aptima.netstorm.algorithms.aptima.bp.hive.HiveMapScript -m " + mapper + " -p " + patternFile + "'\n" +
 		"	AS isLink, srcID, destID, mismatchVector, timeWindow, amount\n" +
 		"	DISTRIBUTE BY timeWindow\n" +
 		"	SORT BY timeWindow ASC, isLink ASC) temp\n" +
 		"INSERT OVERWRITE TABLE " + outputTableName + "\n" +
 		"	REDUCE temp.timeWindow, temp.isLink, temp.srcID, temp.destID, temp.mismatchVector, temp.amount\n" +
-		"	USING 'java -cp PM-0.0.1-SNAPSHOT.jar:hive_contrib.jar:commons-cli-1.3-SNAPSHOT.jar:blueprints-core-2.5.0.jar com.aptima.netstorm.algorithms.aptima.bp.hive.HiveReduceScript " + reducer + " " + patternFile + "'\n" +
+		"	USING 'java -cp " +
+					"PM-0.0.1-SNAPSHOT.jar:" +
+					"hive-contrib-0.10.0-cdh4.3.0.jar:" + 
+					"commons-cli-1.3-SNAPSHOT.jar:" +
+					"blueprints-core-2.5.0.jar:" +
+					"jackson-annotations-2.2.2.jar:" +
+					"jackson-core-2.2.2.jar:" +
+					"jackson-core-asl-1.8.8.jar:" +
+					"jackson-databind-2.2.2.jar:" +
+					"jackson-datatype-json-org-2.2.3.jar:" +
+					"jackson-mapper-asl-1.8.8.jar:" +
+					"jettison-1.3.3.jar " +
+				"com.aptima.netstorm.algorithms.aptima.bp.hive.HiveReduceScript -r " + reducer + " -p " + patternFile + "'\n" +
 		"	AS result_num, modelID, dataID, mismatch, dir;\n";
 		return hql;
 	}

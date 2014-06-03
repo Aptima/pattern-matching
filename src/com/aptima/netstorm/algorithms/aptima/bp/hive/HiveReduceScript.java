@@ -36,7 +36,7 @@ public class HiveReduceScript {
 	public static void main(String[] args) {
 		HelpFormatter helpFormatter = new HelpFormatter();
 		Options options = buildOptions();
-		String mapperOption = null;
+		String reducerOption = null;
 		String patternOption = null;
 		AttributedModelGraph attributedModelGraph = null;
 		
@@ -50,10 +50,10 @@ public class HiveReduceScript {
 				throw new ParseException(String.format("Argument '%s':[%s] not found!", "p", "pattern"));
 			}
 			
-			if (commandLine.hasOption("m")) {
-				mapperOption = commandLine.getOptionValue("m");
+			if (commandLine.hasOption("r")) {
+				reducerOption = commandLine.getOptionValue("r");
 			} else {
-				throw new ParseException(String.format("Argument '%s':[%s] not found!", "m", "mapper"));
+				throw new ParseException(String.format("Argument '%s':[%s] not found!", "r", "reducer"));
 			}
 			
 			// Does pattern file exist? Is it valid GraphSON?
@@ -69,7 +69,7 @@ public class HiveReduceScript {
 			}
 			
 			// Create mapper class and populate it with graph data.
-			Class<?> mapperClass = Class.forName(mapperOption);
+			Class<?> mapperClass = Class.forName(reducerOption);
 			Constructor<?> constructor = mapperClass.getConstructor();
 		 	if (ModelGraph.class.isAssignableFrom(mapperClass)) {
 		 		Object reducerInstance = constructor.newInstance();
@@ -78,7 +78,7 @@ public class HiveReduceScript {
 		        // Run hive job
 		 		new GenericMR().reduce(System.in, System.out, (Reducer) reducerInstance); //new BitcoinReducer(args)
 		 	} else {
-		 		throw new ParseException(String.format("Class: [%s] does not implement [%s]!", mapperOption, "ConvertFromGraphSON"));
+		 		throw new ParseException(String.format("Class: [%s] does not implement [%s]!", reducerOption, "ConvertFromGraphSON"));
 		 	}
 		 	
 		} catch (ParseException e) {
@@ -119,23 +119,23 @@ public class HiveReduceScript {
 	private static Options buildOptions() {
 		Options options = new Options();
 	
-		Option mapper = Option.builder("m")
+		Option reducer = Option.builder("r")
 				.required(true)
 	            .hasArg()
-	            .desc(  "mapper class to use" )
-	            .longOpt("mapper")
+	            .desc("reducer class to use")
+	            .longOpt("reducer")
 	            .type(String.class)
 	            .build();
 	
 		Option pattern = Option.builder("p")
 				.required(true)
 	            .hasArg()
-	            .desc(  "pattern file to use" )
+	            .desc("pattern file to use" )
 	            .longOpt("pattern")
 	            .type(String.class)
 	            .build();;
 	
-		options.addOption(mapper);
+		options.addOption(reducer);
 		options.addOption(pattern);
 	
 		return options;		

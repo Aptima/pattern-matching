@@ -124,7 +124,7 @@ public class HiveMapScript {
 		Option mapper = Option.builder("m")
 				.required(true)
                 .hasArg()
-                .desc(  "mapper class to use" )
+                .desc("mapper class to use")
                 .longOpt("mapper")
                 .type(String.class)
                 .build();
@@ -132,7 +132,7 @@ public class HiveMapScript {
 		Option pattern = Option.builder("p")
 				.required(true)
                 .hasArg()
-                .desc(  "pattern file to use" )
+                .desc("pattern file to use")
                 .longOpt("pattern")
                 .type(String.class)
                 .build();;
