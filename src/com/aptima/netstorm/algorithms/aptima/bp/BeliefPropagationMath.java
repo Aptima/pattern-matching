@@ -69,14 +69,14 @@ public class BeliefPropagationMath {
 //		if (context != null)
 //			System.out.println("***" + context.getStatus());
 		if (printL) {
-			System.out.println("---------L variables");
+			System.err.println("---------L variables");
 			for (int i = 0; i < modelRelations.length; i++) {
 
 				// System.out.println("Model Relation : " + i + " Link:");
 				printLorLR(modelRelations[i].getLink());
 
 			}
-			System.out.println("---------LR variables");
+			System.err.println("---------LR variables");
 			for (int i = 0; i < modelRelations.length; i++) {
 
 				// System.out.println("Model Relation : " + i + " Link Reverse:");
@@ -85,7 +85,7 @@ public class BeliefPropagationMath {
 		}
 		//
 		if (printMu) {
-			System.out.println("---------Mu variables");
+			System.err.println("---------Mu variables");
 			for (int i = 0; i < modelNodes.length; i++) {
 				// System.out.println("Model Node : " + i + " Mu:");
 				printMu(modelNodes[i].getMu());
@@ -93,7 +93,7 @@ public class BeliefPropagationMath {
 		}
 		//
 		if (printP) {
-			System.out.println("---------Probabilities");
+			System.err.println("---------Probabilities");
 			for (int i = 0; i < modelNodes.length; i++) {
 				// System.out.println("Model Node : " + i + " Mu:");
 				printProb(modelNodes[i].getMu());
@@ -111,7 +111,7 @@ public class BeliefPropagationMath {
 			// System.out.println(list.get(i));
 			s += list.get(i) + " ";
 		}
-		System.out.println(s);
+		System.err.println(s);
 	}
 	
 	/**Method prints the messages between nodes in Model Graph
@@ -125,7 +125,7 @@ public class BeliefPropagationMath {
 			// System.out.println(list.get(i));
 			s += list.get(i).Mu + " ";
 		}
-		System.out.println(s);
+		System.err.println(s);
 	}
 	
 	/**Method prints the probabilities contained within the messages Mu
@@ -150,7 +150,7 @@ public class BeliefPropagationMath {
 			if (vMax < Math.exp(list.get(i).Mu))
 				s += Math.exp(list.get(i).Mu) + "[" + i + "]" + " ";
 		}
-		System.out.println(s);
+		System.err.println(s);
 
 	}
 

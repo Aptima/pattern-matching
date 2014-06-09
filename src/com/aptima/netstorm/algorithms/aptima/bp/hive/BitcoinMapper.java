@@ -33,7 +33,7 @@ public class BitcoinMapper extends MRBase implements Mapper, ModelGraph { // Bit
 	private static int maxRowCount = 10;
 
 	public BitcoinMapper() {
-		System.out.println("Creating BitcoinMapper()");
+		System.err.println("Creating BitcoinMapper()");
 		//mismatchCalculator = new NormalizedMismatchCalculator(modelNodes, modelRelations);
 		outputMapBuffer = new String[6];
 		nodeRecord = new String[4];
@@ -54,12 +54,12 @@ public class BitcoinMapper extends MRBase implements Mapper, ModelGraph { // Bit
 		 */
 
 		if (rowCount < maxRowCount) {
-			System.out.println("Reading row");
+			System.err.println("Reading row");
 			if (record == null) {
 				return;
 			} else {
 				for (int i = 0; i < record.length; i++) {
-					System.out.println(record[i]);
+					System.err.println(record[i]);
 				}
 			}
 			rowCount++;
@@ -100,7 +100,7 @@ public class BitcoinMapper extends MRBase implements Mapper, ModelGraph { // Bit
 		for (int i = 0; i < modelNodes.length; i++) {
 			nodeMismatch = mismatchCalculator.ComputeMismatch(modelNodes[i], dataAttributes);
 			if (rowCount < maxRowCount) {
-				System.out.println("Model Node: " + i + " Data Node: " + nodeID + " " + nodeMismatch);
+				System.err.println("Model Node: " + i + " Data Node: " + nodeID + " " + nodeMismatch);
 			}
 			if (nodeMismatch <= mismatchThreshold)
 				idToMismatchMap.put(i, (float) nodeMismatch);
@@ -128,7 +128,7 @@ public class BitcoinMapper extends MRBase implements Mapper, ModelGraph { // Bit
 		for (int i = 0; i < modelRelations.length; i++) {
 			linkMismatch = mismatchCalculator.ComputeMismatch(modelRelations[i], dataAttributes);
 			if (rowCount < maxRowCount) {
-				System.out.println("Model relation: " + i + " Data Relation: " + sourceID + "," + destID + " " + linkMismatch);
+				System.err.println("Model relation: " + i + " Data Relation: " + sourceID + "," + destID + " " + linkMismatch);
 			}
 			if (linkMismatch <= mismatchThreshold)
 				idToMismatchMap.put(i, (float) linkMismatch);
@@ -141,7 +141,7 @@ public class BitcoinMapper extends MRBase implements Mapper, ModelGraph { // Bit
 			String weekBin = "" + CalendarHelper.weekFromBinStart(CalendarHelper.parseBitcoin(dateTime));
 
 			if(weekBin.equals("-1")) {
-				System.out.println("Error DT: " + dateTime);
+				System.err.println("Error DT: " + dateTime);
 				//System.out.println("reporter:counter:APTIMA,TIME_PARSE_ERROR,1");
 			}
 			
@@ -181,7 +181,6 @@ public class BitcoinMapper extends MRBase implements Mapper, ModelGraph { // Bit
 		}
 	}	
 
-	@Override
 	public void input(AttributedModelGraph graph) {
 		modelNodes = graph.getNodes();
 		modelRelations = graph.getRelations();

@@ -70,11 +70,11 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 
 			if (rowCount < maxRowCount) {
 				for (int i = 0; i < mapOutput.length; i++) {
-					System.out.println(mapOutput[i]);
+					System.err.println(mapOutput[i]);
 				}
 				rowCount++;
 
-				System.out.println("");
+				System.err.println("");
 			}
 
 			// String rowTime = mapOutput[0];
@@ -153,7 +153,7 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 			return;
 		}
 
-		System.out.println("BP Math Init");
+		System.err.println("BP Math Init");
 
 		// init BP math constructs
 		BPMathModelNode[] bpMathModelNodes = new BPMathModelNode[modelNodes.length];
@@ -173,7 +173,7 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 
 		if (modelNodes.length <= dataNodeCount) {
 
-			System.out.println("BP Math");
+			System.err.println("BP Math");
 
 			int localExactMatches = 0, localInExactMatches = 0;
 			int numberOfIterations = modelNodes.length;
@@ -204,7 +204,7 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 			// structural matches)
 			int maxRecLevelIterations = 1000;
 
-			System.out.println("Sampling: " + dataNodeCount);
+			System.err.println("Sampling: " + dataNodeCount);
 
 			DFSSampler dfsSampler = new DFSSampler(maxSamplesToGenerate, dataNodeCount, mismatches, bpMathModelNodes,
 					bpMathModelRelations, DataNodeToID, probDecrFactor, maxBranchingFactor, maxTopLevelIterations,
@@ -214,12 +214,12 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 
 			boolean maxSamplesReached = dfsSampler.generateSamples();
 
-			System.out.println("Sampling Done");
+			System.err.println("Sampling Done");
 			// todo: report count
 
 			ArrayList<Sample> newSamples = dfsSampler.getSamples();
 
-			System.out.println("Sampling Read: " + newSamples.size());
+			System.err.println("Sampling Read: " + newSamples.size());
 
 			if (newSamples.size() > 0) {
 				for (int i = 0; i < newSamples.size(); i++) {
@@ -410,7 +410,6 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 		}
 	}
 
-	@Override
 	public void input(AttributedModelGraph graph) {
 		modelNodes = graph.getNodes();
 		modelRelations = graph.getRelations();		

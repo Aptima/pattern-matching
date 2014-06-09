@@ -109,7 +109,7 @@ public class AkamaiMapper extends AkamaiMR implements Mapper {
 		for (int i = 0; i < modelRelations.length; i++) {
 			linkMismatch = mismatchCalculator.ComputeMismatch(modelRelations[i], dataAttributes);
 			if (rowCount < maxRowCount) {
-				System.out.println("Model relation: " + i + " Data Relation: " + sourceID + "," + destID + " " + linkMismatch);
+				System.err.println("Model relation: " + i + " Data Relation: " + sourceID + "," + destID + " " + linkMismatch);
 			}
 			if (linkMismatch <= mismatchThreshold)
 				idToMismatchMap.put(i, (float) linkMismatch);
