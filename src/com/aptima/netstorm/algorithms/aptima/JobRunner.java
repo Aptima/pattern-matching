@@ -156,8 +156,9 @@ public class JobRunner {
 		"add file " + patternFile + ";\n" +		
 
 		"set mapred.reduce.tasks=24;\n" +
-		"set hive.exec.script.allow.partial.consumption=true;\n" +
-
+		"set hive.exec.script.allow.partial.consumption=false;\n" +
+		"set hive.mapred.reduce.tasks.speculative.execution=false;\n" +
+		
 		"FROM (\n" +
 		"	FROM " + inputTableName + "\n" +
 		"	MAP id, source_edge_id, dest_edge_id, dtg, amount, in_degree, out_degree, node, incoming_amount, outgoing_amount\n" +
