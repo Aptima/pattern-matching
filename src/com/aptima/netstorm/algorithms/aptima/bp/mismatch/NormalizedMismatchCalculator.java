@@ -135,12 +135,12 @@ public class NormalizedMismatchCalculator {
 		for (String name : constraintSet.getAttributeNames()) {
 
 			if (!attributeSet.getAttributeNames().contains(name)) // should never happen.
-				throw new RuntimeException("Expected nodes/links of the same type that share the same names.");
+				throw new RuntimeException(String.format("Expected nodes/links of the same type that share the same names (%s).", name));
 
 			AttributeMismatchProcessor amp = attributeMismatchManager.getMismatchProcessor(constraintSet, name);
 			
-			//System.err.println("Attribute name: " + name);
-			//System.err.println("Attribute value: " + attributeSet.getAttributeValue(name));
+			//System.out.println("Attribute name: " + name);
+			//System.out.println("Attribute value: " + attributeSet.getAttributeValue(name));
 			
 			mm += amp.getMismatch(constraintSet.getAttributeConstraint(name), attributeSet.getAttributeValue(name));
 		}

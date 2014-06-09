@@ -27,8 +27,8 @@ public class MRBase {
 		
 		calcSliderMismatch();
 		
-		System.err.println("Slider Value: " + sliderValue);
-		System.err.println("Mismatch Threshold: " + mismatchThreshold);
+		//System.out.println("Slider Value: " + sliderValue);
+		//System.out.println("Mismatch Threshold: " + mismatchThreshold);
 	}
 
 	// 0.0 -> 1.0 mismatch limit

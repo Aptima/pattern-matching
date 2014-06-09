@@ -47,7 +47,7 @@ public class AkamaiReducer extends AkamaiMR implements Reducer {
 
 		// key is time window?
 		String[] mapOutput;
-		System.err.println("Key: " + key);
+		//System.out.println("Key: " + key);
 
 		// init
 		mismatches = new MismatchValues();
@@ -64,11 +64,11 @@ public class AkamaiReducer extends AkamaiMR implements Reducer {
 
 			if (rowCount < maxRowCount) {
 				for (int i = 0; i < mapOutput.length; i++) {
-					System.err.println(mapOutput[i]);
+					System.out.println(mapOutput[i]);
 				}
 				rowCount++;
 
-				System.err.println("");
+				System.out.println("");
 			}
 
 			// isLink, sourceID, destID, mismatchVector, timeWindow
@@ -80,7 +80,7 @@ public class AkamaiReducer extends AkamaiMR implements Reducer {
 
 				if (!IDToDataNode.containsKey(sourceID)) { // map i -> data node
 
-					// System.err.println("Node: " + sourceID);
+					// System.out.println("Node: " + sourceID);
 
 					for (int i = 0; i < modelNodes.length; i++) {
 						// i, j, mismatch
@@ -99,11 +99,11 @@ public class AkamaiReducer extends AkamaiMR implements Reducer {
 
 				// edge contains nodes that weren't seen, skip
 				if (!IDToDataNode.containsKey(sourceID) || !IDToDataNode.containsKey(destID)) {
-					// System.err.println("reporter:counter:APTIMA,NODE_FILTERED,1");
+					// System.out.println("reporter:counter:APTIMA,NODE_FILTERED,1");
 					continue;
 				}
 
-				// System.err.println("Edge: " + sourceID + ", " + destID);
+				// System.out.println("Edge: " + sourceID + ", " + destID);
 
 				String relID = sourceID + "," + destID + ", " + dataRelationCount;
 
@@ -127,16 +127,16 @@ public class AkamaiReducer extends AkamaiMR implements Reducer {
 	// after init and node/link processing, the BP and sampling step is done
 	private final void doSampling(String key, Output output) {
 
-		System.err.println("Sampling Key: " + key);
-		System.err.println("Date Nodes: " + dataNodeCount);
-		System.err.println("Date Relations: " + dataRelationCount);
+//		System.out.println("Sampling Key: " + key);
+//		System.out.println("Date Nodes: " + dataNodeCount);
+//		System.out.println("Date Relations: " + dataRelationCount);
 
 		// did we not read any nodes?
 		if (dataNodeCount == 0 || dataRelationCount == 0) {
 			return;
 		}
 
-		System.err.println("BP Math Init");
+		System.out.println("BP Math Init");
 
 		// init BP math constructs
 		BPMathModelNode[] bpMathModelNodes = new BPMathModelNode[modelNodes.length];
@@ -156,7 +156,7 @@ public class AkamaiReducer extends AkamaiMR implements Reducer {
 
 		if (modelNodes.length <= dataNodeCount) {
 
-			System.err.println("BP Math");
+			System.out.println("BP Math");
 
 			int localExactMatches = 0, localInExactMatches = 0;
 			int numberOfIterations = modelNodes.length;
@@ -187,7 +187,7 @@ public class AkamaiReducer extends AkamaiMR implements Reducer {
 			// structural matches)
 			int maxRecLevelIterations = 100;
 
-			System.err.println("Sampling: " + dataNodeCount);
+			System.out.println("Sampling: " + dataNodeCount);
 
 			DFSSampler dfsSampler = new DFSSampler(maxSamplesToGenerate, dataNodeCount, mismatches, bpMathModelNodes,
 					bpMathModelRelations, DataNodeToID, probDecrFactor, maxBranchingFactor, maxTopLevelIterations,
@@ -197,12 +197,12 @@ public class AkamaiReducer extends AkamaiMR implements Reducer {
 
 			boolean maxSamplesReached = dfsSampler.generateSamples();
 
-			System.err.println("Sampling Done");
+			System.out.println("Sampling Done");
 			// todo: report count
 
 			ArrayList<Sample> newSamples = dfsSampler.getSamples();
 
-			System.err.println("Sampling Read: " + newSamples.size());
+			System.out.println("Sampling Read: " + newSamples.size());
 
 			if (newSamples.size() > 0) {
 				for (int i = 0; i < newSamples.size(); i++) {
@@ -234,8 +234,8 @@ public class AkamaiReducer extends AkamaiMR implements Reducer {
 					}
 
 				}
-				// System.err.println("reporter:counter:APTIMA,NODE_EXACT_MATCHES,1");
-				// System.err.println("reporter:counter:APTIMA,NODE_INEXACT_MATCHES,1");
+				// System.out.println("reporter:counter:APTIMA,NODE_EXACT_MATCHES,1");
+				// System.out.println("reporter:counter:APTIMA,NODE_INEXACT_MATCHES,1");
 			}
 		}
 	}

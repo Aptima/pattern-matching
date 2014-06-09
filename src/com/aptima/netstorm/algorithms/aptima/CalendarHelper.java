@@ -76,11 +76,11 @@ public class CalendarHelper {
 		
 		Calendar startDT = CalendarHelper.parseBitcoin("2009-01-04 12:15:05");
 		int bin = CalendarHelper.weekFromBinStart(startDT);
-		System.out.println(bin);
+		System.err.println(bin);
 		
 		Calendar endDT = CalendarHelper.parseBitcoin("2013-04-10 14:22:50");
 		bin = CalendarHelper.weekFromBinStart(endDT);
-		System.out.println(bin);		
+		System.err.println(bin);		
 		
 		//Calendar c = new GregorianCalendar();
 		//System.out.println(c.toString());

@@ -152,6 +152,7 @@ public class JobRunner {
 		"add file target/lib/jackson-datatype-json-org-2.2.3.jar;\n" +
 		"add file target/lib/jackson-mapper-asl-1.8.8.jar;\n" +
 		"add file target/lib/jettison-1.3.3.jar;\n" +
+		"add file target/lib/derby-10.10.2.0.jar;\n" +
 		"add file " + patternFile + ";\n" +		
 
 		"set mapred.reduce.tasks=24;\n" +
@@ -171,7 +172,8 @@ public class JobRunner {
 					"jackson-databind-2.2.2.jar:" +
 					"jackson-datatype-json-org-2.2.3.jar:" +
 					"jackson-mapper-asl-1.8.8.jar:" +
-					"jettison-1.3.3.jar " +
+					"jettison-1.3.3.jar:" +
+					"derby-10.10.2.0.jar " +
 				"com.aptima.netstorm.algorithms.aptima.bp.hive.HiveMapScript -m " + mapper + " -p " + patternFile + "'\n" +
 		"	AS isLink, srcID, destID, mismatchVector, timeWindow, amount\n" +
 		"	DISTRIBUTE BY timeWindow\n" +
@@ -189,7 +191,8 @@ public class JobRunner {
 					"jackson-databind-2.2.2.jar:" +
 					"jackson-datatype-json-org-2.2.3.jar:" +
 					"jackson-mapper-asl-1.8.8.jar:" +
-					"jettison-1.3.3.jar " +
+					"jettison-1.3.3.jar:" +
+					"derby-10.10.2.0.jar " +
 				"com.aptima.netstorm.algorithms.aptima.bp.hive.HiveReduceScript -r " + reducer + " -p " + patternFile + "'\n" +
 		"	AS result_num, modelID, dataID, mismatch, dir;\n";
 		return hql;

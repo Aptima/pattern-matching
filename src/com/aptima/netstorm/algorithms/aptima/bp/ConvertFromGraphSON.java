@@ -54,6 +54,30 @@ public class ConvertFromGraphSON {
 		}
 		
 		attributedModelGraph = new AttributedModelGraph(nodes, relations);
+		AttributedModelNode[] nodes2 = attributedModelGraph.getNodes();
+		AttributedModelRelation[] relations2 = attributedModelGraph.getRelations();
+//		System.out.println(String.format("AttributedModelGraph: nodes:(%s) relations:(%s)", nodes2.length, relations2.length));
+//		System.out.println(String.format("===================="));
+//		
+//		for (AttributedModelNode node : attributedModelGraph.getNodes()) {
+//			System.out.println(String.format("  nodeId: [%s]", node.getId()));
+//			ModelAttributeConstraints attributes = node.getConstraintSet();
+//			for (String attributeName : attributes.getAttributeNames()) {
+//				System.out.println(String.format("    attribute: [%s] value: [%s]", attributeName, attributes.getAttributeConstraint(attributeName)));
+//			}
+//		}
+//		System.out.println();
+//		for (AttributedModelRelation relation : attributedModelGraph.getRelations()) {
+//			System.out.println(String.format("  relationId: [%s]", relation.getId()));
+//			System.out.println(String.format("  fromId: [%s]", relation.getFrom()));
+//			System.out.println(String.format("  toId: [%s]", relation.getTo()));
+//			ModelAttributeConstraints attributes = relation.getConstraintSet();
+//			for (String attributeName : attributes.getAttributeNames()) {
+//				System.out.println(String.format("    attribute: [%s] value: [%s]", attributeName, attributes.getAttributeConstraint(attributeName)));
+//			}
+//		}
+//		System.out.println();
+		
 		return attributedModelGraph;
 	}
 }

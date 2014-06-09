@@ -54,12 +54,12 @@ public class BitcoinMapper extends MRBase implements Mapper, ModelGraph { // Bit
 		 */
 
 		if (rowCount < maxRowCount) {
-			System.err.println("Reading row");
+			System.out.println("Reading row");
 			if (record == null) {
 				return;
 			} else {
 				for (int i = 0; i < record.length; i++) {
-					System.err.println(record[i]);
+					System.out.println(record[i]);
 				}
 			}
 			rowCount++;
@@ -100,7 +100,7 @@ public class BitcoinMapper extends MRBase implements Mapper, ModelGraph { // Bit
 		for (int i = 0; i < modelNodes.length; i++) {
 			nodeMismatch = mismatchCalculator.ComputeMismatch(modelNodes[i], dataAttributes);
 			if (rowCount < maxRowCount) {
-				System.err.println("Model Node: " + i + " Data Node: " + nodeID + " " + nodeMismatch);
+				System.out.println("Model Node: " + i + " Data Node: " + nodeID + " " + nodeMismatch);
 			}
 			if (nodeMismatch <= mismatchThreshold)
 				idToMismatchMap.put(i, (float) nodeMismatch);
@@ -128,7 +128,7 @@ public class BitcoinMapper extends MRBase implements Mapper, ModelGraph { // Bit
 		for (int i = 0; i < modelRelations.length; i++) {
 			linkMismatch = mismatchCalculator.ComputeMismatch(modelRelations[i], dataAttributes);
 			if (rowCount < maxRowCount) {
-				System.err.println("Model relation: " + i + " Data Relation: " + sourceID + "," + destID + " " + linkMismatch);
+				System.out.println("Model relation: " + i + " Data Relation: " + sourceID + "," + destID + " " + linkMismatch);
 			}
 			if (linkMismatch <= mismatchThreshold)
 				idToMismatchMap.put(i, (float) linkMismatch);
@@ -141,8 +141,8 @@ public class BitcoinMapper extends MRBase implements Mapper, ModelGraph { // Bit
 			String weekBin = "" + CalendarHelper.weekFromBinStart(CalendarHelper.parseBitcoin(dateTime));
 
 			if(weekBin.equals("-1")) {
-				System.err.println("Error DT: " + dateTime);
-				//System.err.println("reporter:counter:APTIMA,TIME_PARSE_ERROR,1");
+				System.out.println("Error DT: " + dateTime);
+				//System.out.println("reporter:counter:APTIMA,TIME_PARSE_ERROR,1");
 			}
 			
 			if (lastNodeSent) {
@@ -171,7 +171,7 @@ public class BitcoinMapper extends MRBase implements Mapper, ModelGraph { // Bit
 			outputMapBuffer[4] = weekBin;
 			outputMapBuffer[5] = amt;
 			
-			//System.err.println("reporter:counter:APTIMA,REL_EMIT,1");
+			//System.out.println("reporter:counter:APTIMA,REL_EMIT,1");
 			
 			try {
 				output.collect(outputMapBuffer);

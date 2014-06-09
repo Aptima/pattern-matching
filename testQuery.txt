@@ -10,7 +10,7 @@
             "_type": "vertex"
         },
         {
-            "COL_BITCOIN_OUT_AMT": {
+            "outAmt": {
                 "type": "string",
                 "value": ">=100"
             },

@@ -3,6 +3,7 @@ package com.aptima.netstorm.algorithms.aptima.bp.hive;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.UUID;
 
@@ -52,7 +53,7 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 
 		// key is time window?
 		String[] mapOutput;
-		System.err.println("Key: " + key);
+		//System.out.println("Key: " + key);
 
 		// init
 		mismatches = new MismatchValues();
@@ -69,17 +70,17 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 
 			if (rowCount < maxRowCount) {
 				for (int i = 0; i < mapOutput.length; i++) {
-					System.err.println(mapOutput[i]);
+					System.out.println(mapOutput[i]);
 				}
 				rowCount++;
 
-				System.err.println("");
+				System.out.println("");
 			}
 
 			// String rowTime = mapOutput[0];
 			// if (!rowTime.equals(currentTimeReduce)) {
 
-			// System.err.println("Switching Time To: " + rowTime + " from " + currentTimeReduce);
+			// System.out.println("Switching Time To: " + rowTime + " from " + currentTimeReduce);
 			// currentTimeReduce = rowTime;
 			// doSampling(key, output);
 
@@ -94,7 +95,7 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 
 				if (!IDToDataNode.containsKey(sourceID)) { // map i -> data node
 
-					// System.err.println("Node: " + sourceID);
+					// System.out.println("Node: " + sourceID);
 
 					for (int i = 0; i < modelNodes.length; i++) {
 						// i, j, mismatch
@@ -113,13 +114,13 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 
 				// edge contains nodes that weren't seen, skip
 				if (!IDToDataNode.containsKey(sourceID) || !IDToDataNode.containsKey(destID)) {
-					// System.err.println("reporter:counter:APTIMA,NODE_FILTERED,1");
+					// System.out.println("reporter:counter:APTIMA,NODE_FILTERED,1");
 					continue;
 				}
 
 				String amount = mapOutput[5];
 
-				// System.err.println("Edge: " + sourceID + ", " + destID);
+				// System.out.println("Edge: " + sourceID + ", " + destID);
 
 				String relID = sourceID + "," + destID + ", " + dataRelationCount + "," + amount;
 
@@ -143,16 +144,16 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 	// after init and node/link processing, the BP and sampling step is done
 	private final void doSampling(String key, Output output) {
 
-		System.err.println("Sampling Key: " + key);
-		System.err.println("Date Nodes: " + dataNodeCount);
-		System.err.println("Date Relations: " + dataRelationCount);
+//		System.out.println("Sampling Key: " + key);
+//		System.out.println("Date Nodes: " + dataNodeCount);
+//		System.out.println("Date Relations: " + dataRelationCount);
 
 		// did we not read any nodes?
 		if (dataNodeCount == 0 || dataRelationCount == 0) {
 			return;
 		}
 
-		System.err.println("BP Math Init");
+		System.out.println("BP Math Init");
 
 		// init BP math constructs
 		BPMathModelNode[] bpMathModelNodes = new BPMathModelNode[modelNodes.length];
@@ -172,7 +173,7 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 
 		if (modelNodes.length <= dataNodeCount) {
 
-			System.err.println("BP Math");
+			System.out.println("BP Math");
 
 			int localExactMatches = 0, localInExactMatches = 0;
 			int numberOfIterations = modelNodes.length;
@@ -203,7 +204,7 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 			// structural matches)
 			int maxRecLevelIterations = 1000;
 
-			System.err.println("Sampling: " + dataNodeCount);
+			System.out.println("Sampling: " + dataNodeCount);
 
 			DFSSampler dfsSampler = new DFSSampler(maxSamplesToGenerate, dataNodeCount, mismatches, bpMathModelNodes,
 					bpMathModelRelations, DataNodeToID, probDecrFactor, maxBranchingFactor, maxTopLevelIterations,
@@ -213,12 +214,12 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 
 			boolean maxSamplesReached = dfsSampler.generateSamples();
 
-			System.err.println("Sampling Done");
+			System.out.println("Sampling Done");
 			// todo: report count
 
 			ArrayList<Sample> newSamples = dfsSampler.getSamples();
 
-			System.err.println("Sampling Read: " + newSamples.size());
+			System.out.println("Sampling Read: " + newSamples.size());
 
 			if (newSamples.size() > 0) {
 				for (int i = 0; i < newSamples.size(); i++) {
@@ -230,6 +231,9 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 
 					// output samples as result_num, modelID, dataID, mismatch
 					Sample sample = newSamples.get(i);
+					if (sample == null) {
+						System.err.println(String.format("Sample [%s] is null!", i));
+					}
 
 					HashMap<String, ArrayList<Double>> modelNodeIncomingAmts = new HashMap<String, ArrayList<Double>>();
 					HashMap<String, ArrayList<RelationshipIDValue>> modelNodeOutgoingAmts = new HashMap<String, ArrayList<RelationshipIDValue>>();
@@ -309,22 +313,26 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 					if (!constrainFlow || totalDelta < 0.2) { // arbitrary limit, refine
 
 						// for (String modelNode : modelNodeIncomingAmts.keySet()) {
-						// System.err.println("Incoming " + modelNode);
+						// System.out.println("Incoming " + modelNode);
 						// for (Double val : modelNodeIncomingAmts.get(modelNode)) {
-						// System.err.println(val);
+						// System.out.println(val);
 						// }
 						// }
 						//
 						// for (String modelNode : modelNodeOutgoingAmts.keySet()) {
-						// System.err.println("Outgoing " + modelNode);
+						// System.out.println("Outgoing " + modelNode);
 						// for (Double val : modelNodeOutgoingAmts.get(modelNode)) {
-						// System.err.println(val);
+						// System.out.println(val);
 						// }
 						// }
 
 						String resultID = UUID.randomUUID().toString();
 
 						HashMap<Integer, Integer> mtoD = sample.getModelNodeToDataNode();
+						if (mtoD == null) {
+							System.err.println(String.format("mtoD of sampleID [%s] is null!", sample.getID()));
+						}
+						
 						for (Integer modelNode : mtoD.keySet()) {
 							String[] outputBuffer = new String[5];
 							outputBuffer[0] = "" + resultID;
@@ -362,13 +370,30 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 						for (String modelNode : modelNodeOutgoingAmts.keySet()) {
 
 							for (RelationshipIDValue val : modelNodeOutgoingAmts.get(modelNode)) {
-
 								String[] outputBuffer = new String[5];
-								outputBuffer[0] = "" + resultID;
-								outputBuffer[1] = "" + sample.getIDWithDataNodeID(mtoD.get(modelNode));
-								outputBuffer[2] = "" + sample.getIDWithDataNodeID(mtoD.get(val.ID));
-								outputBuffer[3] = "" + val.Value;
-								outputBuffer[4] = DIR_OUT;
+								try {									
+									outputBuffer[0] = "" + resultID;
+									outputBuffer[1] = "" + sample.getIDWithDataNodeID(mtoD.get(Integer.parseInt(modelNode)));
+									outputBuffer[2] = "" + sample.getIDWithDataNodeID(mtoD.get(Integer.parseInt(val.ID)));
+									outputBuffer[3] = "" + val.Value;
+									outputBuffer[4] = DIR_OUT;
+								} catch (Exception e) {
+									System.err.println(String.format("mtoD"));
+									for (Entry<Integer, Integer> entry : mtoD.entrySet()) {
+										System.err.println(String.format("key: [%s] value: [%s]", entry.getKey(), entry.getValue()));
+									}
+									System.err.println(String.format("dataIDToDataNodeID"));
+									for (Entry<String, Integer> entry : sample.getDataIDToDataNodeID().entrySet()) {
+										System.err.println(String.format("key: [%s] value: [%s]", entry.getKey(), entry.getValue()));
+									}
+									System.err.println(String.format("val: [%s]", val.ID));
+									System.err.println(String.format("resultID: [%s]", resultID));
+									System.err.println(String.format("modelNode: [%s]", modelNode));
+									if (mtoD.get(modelNode) == null) {
+										System.err.println(String.format("mtoD.get(modelNode): [%s]", "null"));
+									}
+									e.printStackTrace();
+								}
 
 								try {
 									output.collect(outputBuffer);
@@ -379,8 +404,8 @@ public class BitcoinReducer extends MRBase implements Reducer, ModelGraph {
 						}
 					}
 				}
-				// System.err.println("reporter:counter:APTIMA,NODE_EXACT_MATCHES,1");
-				// System.err.println("reporter:counter:APTIMA,NODE_INEXACT_MATCHES,1");
+				// System.out.println("reporter:counter:APTIMA,NODE_EXACT_MATCHES,1");
+				// System.out.println("reporter:counter:APTIMA,NODE_INEXACT_MATCHES,1");
 			}
 		}
 	}
